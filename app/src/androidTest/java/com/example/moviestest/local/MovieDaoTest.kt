@@ -8,6 +8,7 @@ import com.example.moviestest.data.local.dao.MovieDao
 import com.example.moviestest.mockEntity1
 import com.example.moviestest.mockEntity2
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.test.runTest
 import org.junit.After
 import org.junit.Assert.assertEquals
@@ -50,7 +51,7 @@ class MovieDaoTest {
         dao.insertAll(listOf(movie))
 
         dao.updateFavorite(movie.id, true)
-        val updated = dao.getFavorites().first()
+        val updated = dao.getFavoritesFlow().first().first()
         assertTrue(updated.isFavorite)
     }
 }

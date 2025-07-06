@@ -58,19 +58,25 @@ android {
         compose = true
         buildConfig = true
     }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1,LICENSE.md,LICENSE-notice.md}"
+        }
+    }
 }
 
 dependencies {
-    androidTestImplementation(platform(libs.androidx.compose.bom))
     implementation(platform(libs.androidx.compose.bom))
-
     ksp(libs.bundles.kspBundles)
 
-    implementation(libs.bundles.hilt)
-    implementation(libs.bundles.storage)
-    implementation(libs.bundles.network)
-    implementation(libs.bundles.ui)
     implementation(libs.bundles.core)
+    implementation(libs.bundles.ui)
+    implementation(libs.bundles.hilt)
+    implementation(libs.bundles.network)
+    implementation(libs.bundles.storage)
+    implementation(libs.bundles.common)
+
+    androidTestImplementation(platform(libs.androidx.compose.bom))
     implementation(libs.bundles.test)
     testImplementation(kotlin("test"))
 }

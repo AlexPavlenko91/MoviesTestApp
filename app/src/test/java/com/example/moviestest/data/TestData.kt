@@ -26,13 +26,43 @@ val mockEntity1 = MovieEntity(
     isFavorite = false
 )
 
-val mockDomain = Movie(
+val mockDomain1 = Movie(
     id = 2,
     title = "Domain Movie",
     posterUrl = "$TMDB_IMAGE_BASE_URL/2VUmvqsHb6cEtdfscEA6fqqVzLg.jpg",
-    releaseDate = "2025-08-01",
+    releaseDate = "2025-02-01",
     voteAverage = 7.5,
     voteCount = 900,
     overview = "Domain movie overview.",
+    isFavorite = true
+)
+val mockDomain2 = Movie(
+    id = 541671,
+    title = "Domain Movie",
+    posterUrl = "$TMDB_IMAGE_BASE_URL/hqcexYHbiTBfDIdDWxrxPtVndBX.jpg",
+    releaseDate = "2025-01-01",
+    voteAverage = 7.7,
+    voteCount = 1000,
+    overview = "Domain movie overview. 2",
+    isFavorite = true
+)
+val mockDomain2024 = Movie(
+    id = 2024,
+    title = "Domain Movie",
+    posterUrl = "$TMDB_IMAGE_BASE_URL/2VUmvqsHb6cEtdfscEA6fqqVzLg.jpg",
+    releaseDate = "2024-01-01",
+    voteAverage = 7.5,
+    voteCount = 900,
+    overview = "Domain movie overview.",
+    isFavorite = true
+)
+val mockDomain2023 = Movie(
+    id = 2023,
+    title = "Domain Movie",
+    posterUrl = "$TMDB_IMAGE_BASE_URL/hqcexYHbiTBfDIdDWxrxPtVndBX.jpg",
+    releaseDate = "2023-05-01",
+    voteAverage = 7.7,
+    voteCount = 1000,
+    overview = "Domain movie overview. 2",
     isFavorite = true
 )

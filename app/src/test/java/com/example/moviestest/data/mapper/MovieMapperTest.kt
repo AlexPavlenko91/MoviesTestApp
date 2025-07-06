@@ -1,6 +1,6 @@
 package com.example.moviestest.data.mapper
 
-import com.example.moviestest.data.mockDomain
+import com.example.moviestest.data.mockDomain1
 import com.example.moviestest.data.mockDto1
 import com.example.moviestest.data.mockEntity1
 import org.junit.Assert.assertEquals
@@ -57,16 +57,16 @@ class MovieMapperTest {
     @Test
     fun `map Movie domain model to MovieEntity correctly`() {
 
-        val entity = mockDomain.domainToEntity()
+        val entity = mockDomain1.domainToEntity()
 
-        assertEquals(mockDomain.id, entity.id)
-        assertEquals(mockDomain.title, entity.title)
-        assertEquals(mockDomain.posterUrl, entity.posterUrl)
-        assertEquals(mockDomain.releaseDate, entity.releaseDate)
-        assertEquals(mockDomain.voteAverage, entity.voteAverage, 0.0)
-        assertEquals(mockDomain.voteCount, entity.voteCount)
-        assertEquals(mockDomain.overview, entity.overview)
-        assertEquals(mockDomain.isFavorite, entity.isFavorite)
+        assertEquals(mockDomain1.id, entity.id)
+        assertEquals(mockDomain1.title, entity.title)
+        assertEquals(mockDomain1.posterUrl, entity.posterUrl)
+        assertEquals(mockDomain1.releaseDate, entity.releaseDate)
+        assertEquals(mockDomain1.voteAverage, entity.voteAverage, 0.0)
+        assertEquals(mockDomain1.voteCount, entity.voteCount)
+        assertEquals(mockDomain1.overview, entity.overview)
+        assertEquals(mockDomain1.isFavorite, entity.isFavorite)
     }
 
     @Test

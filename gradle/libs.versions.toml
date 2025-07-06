@@ -2,9 +2,6 @@
 agp = "8.11.0"
 kotlin = "2.2.0"
 coreKtx = "1.16.0"
-junit = "4.13.2"
-junitVersion = "1.2.1"
-espressoCore = "3.6.1"
 lifecycleRuntimeKtx = "2.9.1"
 activityCompose = "1.10.1"
 composeBom = "2025.06.01"
@@ -12,6 +9,12 @@ navVersion = "2.9.1"
 kspVersion = "2.2.0-2.0.2"
 workManager = "2.10.2"
 core-splashscreen = "1.0.1"
+
+#test
+junit = "4.13.2"
+junitVersion = "1.2.1"
+espressoCore = "3.6.1"
+mockk = "1.14.4"
 
 #DI
 hiltVersion = "2.56.2"
@@ -22,11 +25,13 @@ roomVersion = "2.7.2"
 dataStoreVersion = "1.1.7"
 roomCommonJvm = "2.7.2"
 roomRuntimeAndroid = "2.7.2"
+roomPaging = "2.7.2"
 #network
 serialization = "1.9.0"
 retrofitVersion = "3.0.0"
 okhttpVersion = "5.0.0"
 retrofit2KotlinxSerializationConverter = "1.0.0"
+pagingCommonAndroid = "3.3.6"
 
 [libraries]
 #core
@@ -61,7 +66,7 @@ roomCompiler = { group = "androidx.room", name = "room-compiler", version.ref = 
 dataStore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStoreVersion" }
 androidx-room-common-jvm = { group = "androidx.room", name = "room-common-jvm", version.ref = "roomCommonJvm" }
 androidx-room-runtime-android = { group = "androidx.room", name = "room-runtime-android", version.ref = "roomRuntimeAndroid" }
-
+roomPaging = { group = "androidx.room", name = "room-paging", version.ref = "roomPaging" }
 #network
 kotlinx-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "serialization" }
 retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitVersion" }
@@ -74,6 +79,10 @@ okhttpInterceptor = { group = "com.squareup.okhttp3", name = "logging-intercepto
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 androidx-junit = { group = "androidx.test.ext", name = "junit", version.ref = "junitVersion" }
 androidx-espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "espressoCore" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
+
+#common
+androidx-paging-common-android = { group = "androidx.paging", name = "paging-common-android", version.ref = "pagingCommonAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -99,7 +108,8 @@ storage = [
     "room",
     "roomKtx",
     "androidx-room-common-jvm",
-    "androidx-room-runtime-android"
+    "androidx-room-runtime-android",
+    "roomPaging"
 ]
 network = [
     "retrofit",
@@ -108,6 +118,9 @@ network = [
     "okhttp",
     "okhttpInterceptor",
     "kotlinx-serialization"
+]
+common = [
+    "androidx-paging-common-android",
 ]
 ui = [
     "androidx-compose-bom",
@@ -130,5 +143,6 @@ test = [
     "androidx-ui-test-junit4",
     "junit",
     "androidx-junit",
-    "androidx-espresso-core"
+    "androidx-espresso-core",
+    "mockk"
 ]
