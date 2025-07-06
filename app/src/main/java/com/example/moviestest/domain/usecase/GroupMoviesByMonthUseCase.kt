@@ -15,10 +15,10 @@ class GroupMoviesByMonthUseCase @Inject constructor() {
 
     operator fun invoke(movies: List<Movie>): Map<YearMonthKey, List<Movie>> {
         return movies
-            .filter { it.releaseDate.isNotBlank() }
+            .filter { it.releaseDate?.isNotBlank() == true }
             .mapNotNull { movie ->
                 val date = try {
-                    formatter.parse(movie.releaseDate)
+                    movie.releaseDate?.let { formatter.parse(it) }
                 } catch (e: ParseException) {
                     null
                 }

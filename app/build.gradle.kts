@@ -67,6 +67,7 @@ android {
 
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.paging.compose.android)
     ksp(libs.bundles.kspBundles)
 
     implementation(libs.bundles.core)

@@ -9,6 +9,7 @@ navVersion = "2.9.1"
 kspVersion = "2.2.0-2.0.2"
 workManager = "2.10.2"
 core-splashscreen = "1.0.1"
+coil = "2.7.0"
 
 #test
 junit = "4.13.2"
@@ -32,6 +33,7 @@ retrofitVersion = "3.0.0"
 okhttpVersion = "5.0.0"
 retrofit2KotlinxSerializationConverter = "1.0.0"
 pagingCommonAndroid = "3.3.6"
+pagingComposeAndroid = "3.3.6"
 
 [libraries]
 #core
@@ -51,6 +53,7 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit4" }
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-ui-navigation = { group = "androidx.navigation", name = "navigation-compose", version.ref = "navVersion" }
+coil-compose = { group = "io.coil-kt", name = "coil-compose", version.ref = "coil" }
 
 #DI
 hiltdagger = { group = "com.google.dagger", name = "hilt-android", version.ref = "hiltVersion" }
@@ -83,6 +86,7 @@ mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 
 #common
 androidx-paging-common-android = { group = "androidx.paging", name = "paging-common-android", version.ref = "pagingCommonAndroid" }
+androidx-paging-compose-android = { group = "androidx.paging", name = "paging-compose-android", version.ref = "pagingComposeAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
@@ -129,7 +133,8 @@ ui = [
     "androidx-ui-tooling",
     "androidx-ui-tooling-preview",
     "androidx-material3",
-    "androidx-ui-navigation"
+    "androidx-ui-navigation",
+    "coil-compose"
 ]
 core = [
     "androidx-core-ktx",

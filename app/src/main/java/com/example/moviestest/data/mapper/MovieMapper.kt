@@ -25,7 +25,7 @@ fun MovieDto.dtoToEntity(): MovieEntity {
         id = id,
         title = title,
         posterUrl = posterPath?.let { "$TMDB_IMAGE_BASE_URL$it" },
-        releaseDate = releaseDate,
+        releaseDate = releaseDate ?: "",
         voteAverage = voteAverage,
         voteCount = voteCount,
         overview = overview
@@ -37,7 +37,7 @@ fun Movie.domainToEntity(): MovieEntity {
         id = id,
         title = title,
         posterUrl = posterUrl,
-        releaseDate = releaseDate,
+        releaseDate = releaseDate ?: "",
         voteAverage = voteAverage,
         voteCount = voteCount,
         overview = overview,

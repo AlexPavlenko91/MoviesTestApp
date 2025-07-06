@@ -39,6 +39,6 @@ class MovieApiTest {
     fun testDiscoverMoviesReturnsResults() = runTest {
         val response = api.discoverMoviesWithParams(DiscoverMovieParams())
         assertTrue(response.results.isNotEmpty())
-        println("First movie title: ${response.results.firstOrNull()?.title}")
+        println("First movie: ${response.results.firstOrNull()}")
     }
 }

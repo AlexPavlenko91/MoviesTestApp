@@ -1,17 +1,17 @@
 package com.example.moviestest.data.remote.dto
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 
 data class MovieDto(
     val id: Int,
     val title: String,
-    @SerialName("poster_path")
+    @SerializedName("poster_path")
     val posterPath: String?,
-    @SerialName("release_date")
-    val releaseDate: String,
-    @SerialName("vote_average")
+    @SerializedName("release_date")
+    val releaseDate: String?,
+    @SerializedName("vote_average")
     val voteAverage: Double,
-    @SerialName("vote_count")
+    @SerializedName("vote_count")
     val voteCount: Int,
     val overview: String
 )

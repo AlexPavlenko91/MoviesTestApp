@@ -15,6 +15,10 @@ class GetPagedMoviesUseCase @Inject constructor(
     private val pager: Pager<Int, MovieEntity>
 ) {
     operator fun invoke(): Flow<PagingData<Movie>> {
-        return pager.flow.map { it.map { entity -> entity.entityToDomain() } }
+        return pager.flow.map {
+            it.map { entity ->
+                entity.entityToDomain()
+            }
+        }
     }
 }

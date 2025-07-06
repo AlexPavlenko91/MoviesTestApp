@@ -1,12 +1,12 @@
 package com.example.moviestest.data.remote.dto
 
-import kotlinx.serialization.SerialName
+import com.google.gson.annotations.SerializedName
 
 data class MovieResponseDto(
     val page: Int,
     val results: List<MovieDto>,
-    @SerialName("total_pages")
+    @SerializedName("total_pages")
     val totalPages: Int,
-    @SerialName("total_results")
+    @SerializedName("total_results")
     val totalResults: Int
 )
