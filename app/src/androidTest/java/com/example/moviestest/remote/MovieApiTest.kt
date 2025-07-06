@@ -11,7 +11,7 @@ import org.junit.Before
 import org.junit.Test
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import com.example.moviestest.data.remote.extension.discoverMovies
+import com.example.moviestest.data.remote.extension.discoverMoviesWithParams
 
 
 @ExperimentalCoroutinesApi
@@ -37,7 +37,7 @@ class MovieApiTest {
 
     @Test
     fun testDiscoverMoviesReturnsResults() = runTest {
-        val response = api.discoverMovies(DiscoverMovieParams())
+        val response = api.discoverMoviesWithParams(DiscoverMovieParams())
         assertTrue(response.results.isNotEmpty())
         println("First movie title: ${response.results.firstOrNull()?.title}")
     }
