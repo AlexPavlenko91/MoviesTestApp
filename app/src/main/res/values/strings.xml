@@ -6,4 +6,7 @@
     <string name="remove_from_favorites">Remove from favorites</string>
     <string name="add_to_favorites">Add to favorites</string>
     <string name="share">Share</string>
+    <string name="share_movie_subject">Movie Recommendation</string>
+    <string name="share_movie_chooser_title">Share movie via</string>
+    <string name="share_movie_text_with_link">Check out this movie: %1$s\n\n%2$s\nLink: %3$s</string>
 </resources>

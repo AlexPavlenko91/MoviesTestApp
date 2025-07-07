@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -27,6 +28,7 @@ import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.moviestest.R
 import com.example.moviestest.domain.model.Movie
+import com.example.moviestest.presentation.utils.shareMovie
 
 
 @Composable
@@ -47,6 +49,8 @@ fun MovieItem(
         movie.isFavorite -> R.string.remove_from_favorites
         else -> R.string.add_to_favorites
     }
+
+    val context = LocalContext.current
 
     Row(
         modifier = modifier
@@ -76,7 +80,7 @@ fun MovieItem(
                         contentDescription = stringResource(contentDescRes)
                     )
                 }
-                IconButton(onClick = { /* TODO share */ }) {
+                IconButton(onClick = { shareMovie(context, movie) }) {
                     Icon(Icons.Default.Share, contentDescription = stringResource(R.string.share))
                 }
             }
