@@ -8,26 +8,24 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.moviestest.domain.model.Movie
-import com.example.moviestest.domain.model.YearMonthKey
-import com.example.moviestest.presentation.screen.movies.components.MoviesSection
+import com.example.moviestest.presentation.screen.movies.components.MoviesAllSection
+import com.example.moviestest.presentation.screen.movies.components.MoviesFavoritesSection
 
 
 @Composable
 fun MoviesScreen(viewModel: MoviesViewModel = hiltViewModel()) {
     val uiState by viewModel.uiState.collectAsState()
+    val favoritesGrouped by viewModel.favoritesGrouped.collectAsState()
+    val favoritesIds by viewModel.favoriteIds.collectAsState()
     val lazyPagingItems = viewModel.pagedMovies.collectAsLazyPagingItems()
 
     when (uiState) {
         is MoviesUiState.Loading -> CircularProgressIndicator()
         is MoviesUiState.Error -> Text("Error")
-
         is MoviesUiState.Content -> {
             val content = uiState as MoviesUiState.Content
-
             Column {
                 TabRow(selectedTabIndex = content.selectedTab.ordinal) {
                     MoviesTab.entries.forEach { tab ->
@@ -38,31 +36,20 @@ fun MoviesScreen(viewModel: MoviesViewModel = hiltViewModel()) {
                         )
                     }
                 }
-
                 when (content.selectedTab) {
-                    MoviesTab.All -> MoviesSection(
-                        pagingItems = lazyPagingItems,
-                        onFavoriteClick = viewModel::onToggleFavorite
-                    )
-
-                    MoviesTab.Favorites -> MoviesSection(
-                        grouped = content.favoritesGrouped,
+                    MoviesTab.All -> {
+                        MoviesAllSection(
+                            pagingItems = lazyPagingItems,
+                            favoritesIds = favoritesIds,
+                            onFavoriteClick = viewModel::onToggleFavorite,
+                        )
+                    }
+                    MoviesTab.Favorites -> MoviesFavoritesSection(
+                        grouped = favoritesGrouped,
                         onFavoriteClick = viewModel::onToggleFavorite
                     )
                 }
             }
         }
     }
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewMoviesSectionPaging() {
-    MoviesSection(
-        grouped = mapOf(
-            YearMonthKey(2024, 7) to Movie.getMockMovies()
-        ),
-        onFavoriteClick = {}
-    )
 }

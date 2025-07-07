@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.Icon
@@ -22,7 +23,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.example.moviestest.R
@@ -31,14 +31,21 @@ import com.example.moviestest.domain.model.Movie
 
 @Composable
 fun MovieItem(
-    movie: Movie, isFavoriteTab: Boolean,
+    movie: Movie,
+    isFavoriteTab: Boolean,
     modifier: Modifier = Modifier,
     onFavoriteClick: (Movie) -> Unit
 ) {
-    val favoriteContentDescRes = if (isFavoriteTab) {
-        R.string.remove_from_favorites
-    } else {
-        R.string.add_to_favorites
+    val icon = when {
+        isFavoriteTab -> Icons.Default.Delete
+        movie.isFavorite -> Icons.Default.Favorite
+        else -> Icons.Default.FavoriteBorder
+    }
+
+    val contentDescRes = when {
+        isFavoriteTab -> R.string.remove_from_favorites
+        movie.isFavorite -> R.string.remove_from_favorites
+        else -> R.string.add_to_favorites
     }
 
     Row(
@@ -65,24 +72,14 @@ fun MovieItem(
             Row {
                 IconButton(onClick = { onFavoriteClick(movie) }) {
                     Icon(
-                        imageVector = if (isFavoriteTab) Icons.Default.Delete else Icons.Default.FavoriteBorder,
-                        contentDescription = stringResource(favoriteContentDescRes)
+                        imageVector = icon,
+                        contentDescription = stringResource(contentDescRes)
                     )
                 }
-                IconButton(onClick = { /* share */ }) {
+                IconButton(onClick = { /* TODO share */ }) {
                     Icon(Icons.Default.Share, contentDescription = stringResource(R.string.share))
                 }
             }
         }
     }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewMovieItem() {
-    MovieItem(
-        movie = Movie.getMockMovies()[0],
-        isFavoriteTab = false,
-        onFavoriteClick = {}
-    )
 }
