@@ -15,14 +15,19 @@ fun MoviesFavoritesSection(
 ) {
     LazyColumn {
         grouped.forEach { (key, movies) ->
-            item {
+            item(key = "header_${key.year}_${key.month}") {
                 Text("${key.month}/${key.year}")
             }
-            items(movies) { movie ->
+            items(
+                items = movies,
+                key = { it.id },
+                contentType = { "movie" }
+            ) { movie ->
                 MovieItem(
                     movie = movie,
+                    isFavorite = true,
                     isFavoriteTab = true,
-                    onFavoriteClick = onFavoriteClick,
+                    onFavoriteClick = onFavoriteClick
                 )
             }
         }

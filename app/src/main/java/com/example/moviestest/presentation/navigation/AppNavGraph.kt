@@ -2,10 +2,12 @@ package com.example.moviestest.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.moviestest.presentation.screen.movies.MoviesScreen
+import com.example.moviestest.presentation.screen.movies.MoviesViewModel
 
 
 @Composable
@@ -19,7 +21,7 @@ fun AppNavGraph(
         modifier = modifier
     ) {
         composable("movies") {
-            MoviesScreen()
+            MoviesScreen(viewModel = hiltViewModel<MoviesViewModel>())
         }
     }
 }

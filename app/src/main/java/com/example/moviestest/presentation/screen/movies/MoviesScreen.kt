@@ -8,14 +8,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.moviestest.presentation.screen.movies.components.MoviesAllSection
 import com.example.moviestest.presentation.screen.movies.components.MoviesFavoritesSection
 
 
 @Composable
-fun MoviesScreen(viewModel: MoviesViewModel = hiltViewModel()) {
+fun MoviesScreen(viewModel: MoviesViewModel) {
     val uiState by viewModel.uiState.collectAsState()
     val favoritesGrouped by viewModel.favoritesGrouped.collectAsState()
     val favoritesIds by viewModel.favoriteIds.collectAsState()

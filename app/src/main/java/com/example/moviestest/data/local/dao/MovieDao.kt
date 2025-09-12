@@ -11,16 +11,16 @@ import com.example.moviestest.data.local.entity.MovieEntity
 @Dao
 interface MovieDao {
 
-    @Query("SELECT * FROM movies ORDER BY releaseDate DESC")
+    @Query("SELECT * FROM movies ORDER BY release_date DESC")
     suspend fun getAllMovies(): List<MovieEntity>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertAll(movies: List<MovieEntity>)
 
-    @Query("UPDATE movies SET isFavorite = :isFavorite WHERE id = :movieId")
+    @Query("UPDATE movies SET is_favorite = :isFavorite WHERE id = :movieId")
     suspend fun updateFavorite(movieId: Int, isFavorite: Boolean)
 
-    @Query("SELECT * FROM movies ORDER BY releaseDate DESC")
+    @Query("SELECT * FROM movies ORDER BY release_date DESC")
     fun pagingSource(): PagingSource<Int, MovieEntity>
 
     @Query("DELETE FROM movies")

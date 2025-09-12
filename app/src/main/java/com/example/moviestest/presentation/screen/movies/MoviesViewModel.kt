@@ -3,9 +3,7 @@ package com.example.moviestest.presentation.screen.movies
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.PagingData
 import androidx.paging.cachedIn
-import androidx.paging.map
 import com.example.moviestest.domain.model.Movie
 import com.example.moviestest.domain.model.YearMonthKey
 import com.example.moviestest.domain.repository.FavoritesRepository
@@ -13,7 +11,6 @@ import com.example.moviestest.domain.usecase.GetPagedMoviesUseCase
 import com.example.moviestest.domain.usecase.GroupMoviesByMonthUseCase
 import com.example.moviestest.domain.usecase.ToggleFavoriteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
@@ -60,11 +57,7 @@ class MoviesViewModel @Inject constructor(
         .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptyMap())
 
 
-    private val pagerFlow = getPagedMoviesUseCase().cachedIn(viewModelScope)
-
-    val pagedMovies: Flow<PagingData<Movie>> = pagerFlow
-        .combine(favoriteIds) { paging, favs -> paging.map { movie -> movie.copy(isFavorite = favs.contains(movie.id)) } }
-
+    val pagedMovies = getPagedMoviesUseCase().cachedIn(viewModelScope)
 
     val uiState: StateFlow<MoviesUiState> = combine(
         selectedTab, favoritesGrouped

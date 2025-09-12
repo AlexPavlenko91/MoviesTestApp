@@ -12,15 +12,15 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface FavoriteDao {
 
-    @Query("SELECT movies.* FROM movies INNER JOIN favorites ON movies.id = favorites.movieId ORDER BY releaseDate DESC")
+    @Query("SELECT movies.* FROM movies INNER JOIN favorites ON movies.id = favorites.movie_id ORDER BY release_date DESC")
     fun getFavoritesFlow(): Flow<List<MovieEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insert(fav: FavoriteMovie)
 
-    @Query("DELETE FROM favorites WHERE movieId = :id")
+    @Query("DELETE FROM favorites WHERE movie_id = :id")
     suspend fun delete(id: Int)
 
-    @Query("SELECT EXISTS(SELECT 1 FROM favorites WHERE movieId = :id)")
+    @Query("SELECT EXISTS(SELECT 1 FROM favorites WHERE movie_id = :id)")
     suspend fun exists(id: Int): Boolean
 }

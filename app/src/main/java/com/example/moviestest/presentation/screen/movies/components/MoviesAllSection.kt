@@ -3,15 +3,14 @@ package com.example.moviestest.presentation.screen.movies.components
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.paging.LoadState
 import androidx.paging.compose.LazyPagingItems
 import com.example.moviestest.domain.model.Movie
 import com.example.moviestest.domain.model.YearMonthKey
@@ -23,27 +22,55 @@ fun MoviesAllSection(
     favoritesIds: Set<Int>,
     onFavoriteClick: (Movie) -> Unit
 ) {
-    var lastHeader: YearMonthKey? by remember { mutableStateOf(null) }
-    LazyColumn {
-        items(pagingItems.itemCount) { index ->
+    val listState = rememberSaveable("all_list", saver = LazyListState.Saver) {
+        LazyListState()
+    }
+
+    LazyColumn(state = listState) {
+        items(
+            count = pagingItems.itemCount,
+            key = { index -> pagingItems.peek(index)?.id ?: "placeholder_$index" },
+            contentType = { "movie" }
+        ) { index ->
             val movie = pagingItems[index] ?: return@items
-            val key = parseYearMonth(movie.releaseDate)
-            val needHeader = key != null && key != lastHeader
+
+            val currKey = parseYearMonth(movie.releaseDate)
+            val prevRelease = if (index > 0) pagingItems.peek(index - 1)?.releaseDate else null
+            val prevKey = prevRelease?.let(::parseYearMonth)
+
+            val needHeader = currKey != null && (index == 0 || currKey != prevKey)
+
             Column {
-                if (needHeader && key != null) {
-                    lastHeader = key
+                if (needHeader) {
                     Text(
-                        "${key.month}/${key.year}",
+                        "${currKey?.month}/${currKey?.year}",
                         style = MaterialTheme.typography.titleMedium,
                         modifier = Modifier.padding(8.dp)
                     )
                 }
 
                 MovieItem(
-                    movie = movie.copy(isFavorite = favoritesIds.contains(movie.id)),
+                    movie = movie,
+                    isFavorite = favoritesIds.contains(movie.id),
                     isFavoriteTab = false,
-                    onFavoriteClick = onFavoriteClick,
+                    onFavoriteClick = onFavoriteClick
                 )
+            }
+        }
+
+        // load states
+        pagingItems.apply {
+            when {
+                loadState.refresh is LoadState.Loading -> item { LoadingBlock() }
+                loadState.append  is LoadState.Loading -> item { LoadingMoreBlock() }
+                loadState.refresh is LoadState.Error   -> {
+                    val err = (loadState.refresh as LoadState.Error).error
+                    item { ErrorBlock(throwable = err, onRetry = ::retry) }
+                }
+                loadState.append  is LoadState.Error   -> {
+                    val err = (loadState.append as LoadState.Error).error
+                    item { ErrorMoreBlock(throwable = err, onRetry = ::retry) }
+                }
             }
         }
     }

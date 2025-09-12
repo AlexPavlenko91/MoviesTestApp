@@ -34,19 +34,19 @@ import com.example.moviestest.presentation.utils.shareMovie
 @Composable
 fun MovieItem(
     movie: Movie,
+    isFavorite: Boolean,
     isFavoriteTab: Boolean,
     modifier: Modifier = Modifier,
     onFavoriteClick: (Movie) -> Unit
 ) {
     val icon = when {
         isFavoriteTab -> Icons.Default.Delete
-        movie.isFavorite -> Icons.Default.Favorite
+        isFavorite -> Icons.Default.Favorite
         else -> Icons.Default.FavoriteBorder
     }
 
     val contentDescRes = when {
-        isFavoriteTab -> R.string.remove_from_favorites
-        movie.isFavorite -> R.string.remove_from_favorites
+        isFavoriteTab || isFavorite -> R.string.remove_from_favorites
         else -> R.string.add_to_favorites
     }
 
@@ -75,10 +75,7 @@ fun MovieItem(
             Text(movie.overview, maxLines = 3, overflow = TextOverflow.Ellipsis)
             Row {
                 IconButton(onClick = { onFavoriteClick(movie) }) {
-                    Icon(
-                        imageVector = icon,
-                        contentDescription = stringResource(contentDescRes)
-                    )
+                    Icon(imageVector = icon, contentDescription = stringResource(contentDescRes))
                 }
                 IconButton(onClick = { shareMovie(context, movie) }) {
                     Icon(Icons.Default.Share, contentDescription = stringResource(R.string.share))

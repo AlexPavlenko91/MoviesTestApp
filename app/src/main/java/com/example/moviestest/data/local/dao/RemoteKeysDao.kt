@@ -9,7 +9,7 @@ import com.example.moviestest.data.local.entity.RemoteKeys
 
 @Dao
 interface RemoteKeysDao {
-    @Query("SELECT * FROM remote_keys WHERE movieId = :movieId")
+    @Query("SELECT * FROM remote_keys WHERE movie_id = :movieId")
     suspend fun remoteKeysMovieId(movieId: Int): RemoteKeys?
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
