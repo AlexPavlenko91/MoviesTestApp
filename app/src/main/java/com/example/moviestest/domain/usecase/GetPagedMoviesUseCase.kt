@@ -1,24 +1,11 @@
 package com.example.moviestest.domain.usecase
 
-import androidx.paging.Pager
-import androidx.paging.PagingData
-import androidx.paging.map
-import com.example.moviestest.data.local.entity.MovieEntity
-import com.example.moviestest.data.mapper.entityToDomain
-import com.example.moviestest.domain.model.Movie
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import com.example.moviestest.domain.repository.MovieRepository
 import javax.inject.Inject
 
 
 class GetPagedMoviesUseCase @Inject constructor(
-    private val pager: Pager<Int, MovieEntity>
+    private val repository: MovieRepository
 ) {
-    operator fun invoke(): Flow<PagingData<Movie>> {
-        return pager.flow.map {
-            it.map { entity ->
-                entity.entityToDomain()
-            }
-        }
-    }
+    operator fun invoke() = repository.pagedMovies()
 }
