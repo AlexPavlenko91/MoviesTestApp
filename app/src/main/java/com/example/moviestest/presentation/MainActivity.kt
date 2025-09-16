@@ -10,7 +10,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.navigation.compose.rememberNavController
+import com.example.moviestest.R
 import com.example.moviestest.presentation.navigation.AppNavGraph
 import com.example.moviestest.presentation.theme.MoviesTestTheme
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,7 +39,13 @@ fun AppRoot() {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Movies") }
+                title = {
+                    Text(
+                        text = "Movies",
+                        fontFamily = FontFamily(Font(R.font.kaushan_script))
+
+                    )
+                }
             )
         }
     ) { padding ->
