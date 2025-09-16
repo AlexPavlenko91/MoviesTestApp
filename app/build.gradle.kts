@@ -1,5 +1,3 @@
-import java.util.Properties
-
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
@@ -24,25 +22,21 @@ android {
     }
 
     buildTypes {
-        val localProperties = Properties().apply {
-            load(rootProject.file("local.properties").inputStream())
-        }
-        val tmdbToken = localProperties["TMDB_ACCESS_TOKEN"] ?: "MISSING_TOKEN"
+        val tmdbToken: String = (
+                System.getenv("TMDB_ACCESS_TOKEN")
+                    ?: project.findProperty("TMDB_ACCESS_TOKEN") as String?
+                    ?: "MISSING_TOKEN"
+                )
 
         debug {
             buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
             buildConfigField("String", "TMDB_ACCESS_TOKEN", "\"$tmdbToken\"")
         }
-
         release {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
             buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
             buildConfigField("String", "TMDB_ACCESS_TOKEN", "\"$tmdbToken\"")
-
         }
     }
     compileOptions {

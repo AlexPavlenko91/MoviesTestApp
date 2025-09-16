@@ -2,9 +2,9 @@ name: Android CI (fast)
 
 on:
   push:
-    branches: [ main, origin/dev ]
+    branches: [ main, dev ]
   pull_request:
-    branches: [ main, origin/dev ]
+    branches: [ main, dev ]
 
 jobs:
   build:
@@ -21,6 +21,13 @@ jobs:
           java-version: '21'
           cache: 'gradle'
 
+      - name: Set up Android SDK 36
+        uses: android-actions/setup-android@v3
+        with:
+          api-level: 36
+          build-tools: 36.0.0
+          components: platform-tools
+
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
 
@@ -28,6 +35,8 @@ jobs:
         run: chmod +x ./gradlew
 
       - name: Build & Unit tests
+        env:
+          TMDB_ACCESS_TOKEN: ${{ secrets.TMDB_ACCESS_TOKEN }}
         run: ./gradlew --no-daemon --stacktrace testDebugUnitTest assembleDebug
 
       - name: Upload APK
